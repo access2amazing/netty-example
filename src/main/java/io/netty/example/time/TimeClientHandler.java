@@ -14,6 +14,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // In TCP/IP, Netty reads the data sent from a peer into a ByteBuf
+        // 这种实现有时产生IndexOutOfBoundsException异常
         ByteBuf m = (ByteBuf) msg;
         try {
             long currentTimeMillis = (m.readUnsignedInt() - 2208988800L) * 1000L;

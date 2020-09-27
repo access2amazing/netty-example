@@ -23,8 +23,16 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
         final ByteBuf time = ctx.alloc().buffer(4);
         time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
 
-
+        // ByteBuf有两个指针：一个用于读，另一个用于写
+        // 当写数据到ByteBuf时，写index增加，而读index不变
+        // 读index和写index分别代表消息开始和结束的位置
+        // ChannelHandlerContext#write以及ChannelHandlerContext#writeAndFlush方法
+        // 会返回一个ChannelFuture对象，表示可能没有完成的I/O操作（Netty是异步的）
+        // 因此，在调用close方法前需要确保ChannelFuture已经完成（可以通过添加listener实现）
+        // 注意：close方法会返回一个ChannelFuture，表示连接不会立即被关闭
         final ChannelFuture channelFuture = ctx.writeAndFlush(time);
+
+        // 添加ChannelFutureListener
         // 可以简化为 channelFuture.addListener(ChannelFutureListener.CLOSE)
         channelFuture.addListener(new ChannelFutureListener() {
             @Override

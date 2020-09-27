@@ -9,8 +9,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import java.text.DecimalFormat;
-
 /**
  * @author xueli.wang
  * @since 2020/06/14 18:04
@@ -72,12 +70,10 @@ public class DiscardServer {
     }
 
     public static void main(String[] args) throws Exception {
-        double d = 13.10001d;
-        double precision = 0.09d;
-        System.out.println(
-                Math.abs(Math.round(d) - d) <= precision
-                ? String.format("%.0f", d)
-                : String.format("%.1f", d)
-        );
+        int port = 9090;
+        if (args.length >= 1) {
+            port = Integer.parseInt(args[0]);
+        }
+        new DiscardServer(port).run();
     }
 }
