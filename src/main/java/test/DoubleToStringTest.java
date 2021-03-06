@@ -1,5 +1,7 @@
 package test;
 
+import java.util.Arrays;
+
 /**
  * @author xueli.wang
  * @since 2021/01/19 16:10
@@ -17,5 +19,13 @@ public class DoubleToStringTest {
         System.out.println(lats);
         System.out.println(lon);
         System.out.println(lons);
+
+        String truckTypeList = "1, 2";
+        Arrays.asList(truckTypeList.split(",")).stream()
+                .map(i -> {
+                    int k = Integer.valueOf(i);
+                    System.out.println(k);
+                    return k;
+                });
     }
 }

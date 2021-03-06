@@ -15,5 +15,10 @@ public class LocalDateTimeTest {
         int hourOfDay = now.getHour();
         System.out.println(selectItemKeyLevel1);
         System.out.println(hourOfDay);
+
+        LocalDateTime night = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(),
+                23, 59);
+        System.out.println(night);
+        System.out.println(night.getSecond());
     }
 }
